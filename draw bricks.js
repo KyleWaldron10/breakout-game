@@ -25,18 +25,31 @@ var brickOffsetTop = 30;
 var brickOffsetLeft = 30; 
 
 //Hold the bricks in a two-dimensional array - think of it as rows and columns
-var brick = [];
+var bricks = [];
 for(c=0; c<brickColumnCount; c++) {
-	bricks [c] = [];
+	bricks[c] = [];
 	for(r=0; r<brickRowCount; r++) {
-		bricks[c][r] = { x: 0, y: o, status: 1 };
+		bricks[c][r] = { x: 0, y: 0, status: 1 };
 	}
 }
 
 //this function draws the bricks 
 function drawBricks() {
 	for(c=0; c<brickColumnCount; c++) {
-		for(r=0; r<brickRowCount; r++
+		for(r=0; r<brickRowCount; r++) {
+			var brickX = (c*(brickWidth+brickPadding))+brickOffsetLeft;
+			var brickY = (r*(brickHeight+brickPadding))+brickOffsetTop;
+			bricks[c][r].x = brickX;
+			bricks[c][r].y = brickY;
+			ctx.beginPath();
+			ctx.rect(brickX, brickY, brickWidth, brickHeight);
+			ctx.fillStyle = "#0095DD";
+			ctx.fill();
+			ctx.closePath();
+		}
+	}
+}
+	
 
 	
 //This function draws the ball on the canvas
@@ -63,6 +76,8 @@ function draw() {
 	drawBall();
 	//draw the paddle
 	drawPaddle();
+	// draw the bricks
+	drawBricks();
 	
 	//Bounce the ball off side walls - if it drops off the bottom - Game Over!
 	if(x + dx > canvas.width-BallRadius || x + dx < BallRadius) {
