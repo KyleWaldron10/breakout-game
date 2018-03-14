@@ -105,6 +105,7 @@ function draw() {
 			dy = -dy;
 	}
 	else { 
+		GAMEOVER_SOUND.play();
 		alert("GAME OVER");
 		document.location.reload();
 	}
